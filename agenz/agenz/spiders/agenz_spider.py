@@ -8,9 +8,10 @@ class AgenzSpiderSpider(scrapy.Spider):
     allowed_domains = ["agenz.ma"]
     start_urls = []
     # for city_name in ["casablnca"]:
-    for i in range(60):
+    for i in range(4):
         start_urls.append(
-            f"https://agenz.ma/fr/list.htm??page={i}&prixmax=9500000&type=appartement&province=marrakech&lat=33.571298877886946&lng=-7.537391991925659&address=marrakech&transaction_type=location"
+            f"https://agenz.ma/fr/list.htm??page={i}&prixmax=9500000&type=villa&province=kenitra&lat=33.571298877886946&lng=-7.537391991925659&address=sale&transaction_type=vente"
+            # f"https://agenz.ma/fr/list.htm??page={i}&prixmax=9500000&type=appartement&province=kenitra&lat=33.571298877886946&lng=-7.537391991925659&address=sale&transaction_type=location"
         )
     headers = {
         "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
@@ -32,7 +33,7 @@ class AgenzSpiderSpider(scrapy.Spider):
             ).getall()
 
             # 2. Join and clean the text
-            # result: "Appartement à vendre casablanca - Hay Riad"
+            # result: "villa à vendre casablanca - Hay Riad"
             full_title = " ".join([t.strip() for t in raw_title_parts if t.strip()])
             title = card.xpath(
                 './/a[contains(@class, "_locationAdress_")]/span/text()'
